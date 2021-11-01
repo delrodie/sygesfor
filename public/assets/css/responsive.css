@@ -1,0 +1,99 @@
+@media (max-width:960px) {
+    header{
+        padding: 30px 30px;
+    }
+    header .navigation{
+        display: none;
+    }
+    header label{
+        display: block;
+        font-size: 25px;
+        cursor: pointer; 
+        transition: .3s;
+        transition-property: color;
+        padding-right: 30px;
+    }
+    header label:hover{
+        color: var(--orange);
+    }
+    header label .la-times{
+        display: none;
+    }
+    #menu:checked ~ header .navigation{
+        z-index: 2;
+        position: fixed;
+        background: rgba(56, 0, 142, 0.8);
+        top: 0;bottom: 0;right: 0;left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    #menu:checked ~ header .navigation a{
+        font-weight: 900;
+        margin-right: 0;
+        margin-bottom: 30px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-size: 26px;
+    }
+    #menu:checked ~ header label .la-bars{
+        display: none;
+    }
+    #menu:checked ~ header label .la-times{
+        z-index: 2;
+        display: block;
+        position: fixed;
+    }
+    #menu:checked ~ header .navigation a{
+        color: white;
+    }
+    #menu:checked ~ header .navigation a:hover{
+        color: var(--orange)
+    }
+    label .la-bars{
+        position:absolute;
+    }
+    .wrapper{
+        margin: 150px 40px;
+    }
+    .wrapper h3{
+        font-weight: bold;
+    }
+    .wrapper h5{
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+    .wrapper p{
+        text-align: justify;
+        width: 100%;
+    }
+    footer{
+        text-align: center;
+        bottom: 0;
+        left: 0;
+        position: fixed;
+        font-size: 0.85rem;
+        display: none;
+    }
+    .page-secondaire .form-group{
+        margin-left: 0;
+        padding-left: 0;
+        margin-right: 0;
+        padding-right: 0;
+    }
+    .page-secondaire .col-md-6{
+        margin: 0;
+        padding: 0;
+    }
+    .page-secondaire .info-scoute{
+        border-left: none;
+    }
+    .page-secondaire .info-perso{
+        border-left: none
+    }
+    .page-secondaire{
+        padding: 120px 10px 100px;
+        margin: 0;
+    }
+}
