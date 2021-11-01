@@ -33,7 +33,7 @@ class SecurityController extends AbstractController
         // }
 	    
 	    if ($this->_security->initialisation())
-			$this->addFlash('succes', "Utilisateur 'conafor1' initiaisé avec succès");
+			$this->addFlash('success', "Utilisateur 'conafor1' initiaisé avec succès");
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
