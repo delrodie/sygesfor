@@ -121,8 +121,8 @@
                     <div class="menu-dropdown" style="float: right">
                         <div class="menu"></div>
                         <div class="menu-list" style="right: 0;">
-                            <a href="#"><i class="ti-unlock"></i> Modifier password</a>
-                            <a href="#"><i class="ti-power-off"></i> Déconnexion</a>
+                            <a href="{{ absolute_url(path('app_password_change')) }}"><i class="ti-unlock"></i> Modifier password</a>
+                            <a href="{{ absolute_url(path('app_logout')) }}"><i class="ti-power-off"></i> Déconnexion</a>
                         </div>
                     </div>
                 </div>
