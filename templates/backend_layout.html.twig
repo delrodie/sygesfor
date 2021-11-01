@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>{% block title %}CONAFOR : {% endblock %}</title>
+        <link rel="shortcut icon" href="{{ absolute_url(asset('assets/images/ascci.png')) }}">
+
+        <meta name="keywords" content="SCOUT, OMMS, ASCCI"  />
+        <meta name="description" content="Backoffice du Système de Gestion des Camps de Formation des Scouts Catholiques de Côte d'Ivoire" />
+        <meta name="Author" content="PIT, Delrodie AMOIKON">
+        <meta name="Copyright" content="www.scoutascci.org">
+        <meta name="Content-Language" content="FR">
+        <link rel="canonical" href="{{ absolute_url(path('conafor_dashbord')) }}" />
+        <meta property="og:locale" content="fr_FR" />
+        <meta property="og:type" content="Item" />
+        <meta property="og:title" content="SYGEFOR : Tableau de bord" />
+        <meta property="og:description" content="Backoffice du Système de Gestion des Camps de Formation des Scouts Catholiques de Côte d'Ivoire" />
+        <meta property="og:url" content="{{ absolute_url(path('conafor_dashbord')) }}" />
+        <meta property="og:site_name" content="ASCCI" />
+        <meta property="og:image" content="{{ absolute_url(asset('assets/images/ascci.png')) }}" />
+        <meta name="twitter:card" content="summary"/>
+        <meta name="twitter:description" content="SYGEFOR : Tableau de bord"/>
+        <meta name="twitter:title" content="Backoffice du Système de Gestion des Camps de Formation des Scouts Catholiques de Côte d'Ivoire"/>
+        <meta name="twitter:domain" content="ASCCI"/>
+        <meta name="twitter:image:src" content="{{ absolute_url(asset('assets/images/ascci.png')) }}"/>
+
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
+            <link rel="stylesheet" href="{{ absolute_url(asset('backend/css/style.css')) }}">
+        {% endblock %}
+    </head>
+    <body>
+        <input type="checkbox" id="sidebar-toggle">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3 class="brand">
+                    <span class="ti-unlink"></span>
+                    <span>SYGEFOR</span>
+                </h3>
+                <label for="sidebar-toggle" class="ti-menu-alt"></label>
+            </div>
+            <div class="sidebar-menu">
+                <ul>
+                    <hr class="dashbord">
+                    <li>
+                        <a href="{{ absolute_url(path('conafor_dashbord')) }}">
+                            <span class="ti-bar-chart"></span> <span>Statistiques</span>
+                        </a>
+                    </li>
+                    <hr class="gestion">
+                    <li>
+                        <a href="#" title="Candidats">
+                            <span class="ti-user"></span> <span>Candidats</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" title="Participants">
+                            <span class="ti-user"></span> <span>Participants</span>
+                        </a>
+                    </li>
+                    {% if is_granted('ROLE_FINANCE') %}
+                        <li>
+                            <a href="{{ absolute_url(path('conafor_finance_liste')) }}" title="Finance">
+                                <span class="ti-money"></span> <span>Finance</span>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    <hr class="administrateur">
+                    <li>
+                        <a href="">
+                            <span class="ti-target"></span> <span>Activités</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="ti-map-alt"></span> <span>Region</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <span class="ti-map"></span> <span>District</span>
+                        </a>
+                    </li>
+                    <!--<li>
+                        <a href="">
+                            <span class="ti-location-pin"></span> <span>Groupes</span>
+                        </a>
+                    </li>-->
+                    <hr class="securite">
+                    <li>
+                        <a href="#">
+                            <span class="ti-lock"></span> <span>Utilisateurs</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="ti-settings"></span> <span>Compte</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <header>
+                <div class="search-wrapper">
+                    <span class="ti-search"></span>
+                    <input type="search" placeholder="Recherche">
+                </div>
+
+                <div class="social-icons">
+                    <span class="ti-bell"></span>
+                    <span class="ti-comment"></span>
+                    <div class="menu-dropdown" style="float: right">
+                        <div class="menu"></div>
+                        <div class="menu-list" style="right: 0;">
+                            <a href="#"><i class="ti-unlock"></i> Modifier password</a>
+                            <a href="#"><i class="ti-power-off"></i> Déconnexion</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            {% block body %}{% endblock %}
+        </div>
+
+        {% block javascripts %}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"  async defer></script>
+
+        {% endblock %}
+    </body>
+</html>
