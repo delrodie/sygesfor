@@ -81,7 +81,7 @@ class CandidatController extends AbstractController
 		
 		$montant = $activite->getMontant();
 		$am = (int) $montant/(1 - 0.035);
-		$am = $this->arrondiSuperieur($am, 5);
+		$am = $this->_candidature->arrondiSuperieur($am, 5);
 		
 		return $this->render('candidat/paiement.html.twig',[
 			'candidater' => $candidater,
@@ -108,4 +108,6 @@ class CandidatController extends AbstractController
 		
 		return $this->json($result);
 	}
+	
+	
 }

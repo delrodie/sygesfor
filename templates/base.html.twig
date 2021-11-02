@@ -55,6 +55,99 @@
     <script>
         AOS.init();
     </script>
+    <script>
+        function matricule() {
+            Swal.fire({
+                title: 'Entre ton matricule',
+                input: 'text',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonText: '<i class="fas fa-search"></i> Valider',
+                inputPlaceholder: 'Entre ton matricule',
+                showLoaderOnConfirm: true,
+                cancelButtonText: 'Annuler',
+                preConfirm: (matricule) => {
+                    //return fetch(`//api.github.com/users/${login}`)
+                    return fetch(`{{ absolute_url(path('app_home')) }}ajax/${matricule}`)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error(response.statusText)
+                                }
+                                let matricule = response.matricule;
+                                //console.log(matricule)
+                                return response.json()
+
+                            })
+                            .catch(error => {
+                                Swal.showValidationMessage(
+                                        `Demande échouée: ${error}`
+                                )
+                            })
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let donnee = result.value
+                    if (!donnee){
+                        window.location = "{{ absolute_url(path('app_recherche_echec')) }}"
+                    }else{
+                        console.log(donnee.matricule)
+                        //dump();
+                        window.location = "{{ absolute_url(path('candidat_index')) }}";
+                        //window.location = "{{ absolute_url(path('app_home')) }}recherche/matricule/"+ donnee.slug;
+                    }
+                }
+            })
+        }
+
+        function paiement() {
+            Swal.fire({
+                title: 'Entre ton matricule',
+                input: 'text',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonText: '<i class="fas fa-search"></i> Valider',
+                inputPlaceholder: 'Entre ton matricule',
+                showLoaderOnConfirm: true,
+                cancelButtonText: 'Annuler',
+                preConfirm: (matricule) => {
+                    //return fetch(`//api.github.com/users/${login}`)
+                    return fetch(`{{ absolute_url(path('app_home')) }}ajax/${matricule}/paiement`)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error(response.statusText)
+                                }
+                                let matricule = response.matricule;
+                                console.log(response.status)
+                                return response.json()
+
+                            })
+                            .catch(error => {
+                                Swal.showValidationMessage(
+                                        `Demande échouée: ${error}`
+                                )
+                            })
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let donnee = result.value
+                    if (!donnee.status){
+                        window.location = "{{ absolute_url(path('app_recherche_echec')) }}"
+                    }else{
+                        console.log(donnee.status)
+                        //dump();
+                        window.location = "{{ absolute_url(path('candidat_paiement')) }}";
+                        //window.location = "{{ absolute_url(path('app_home')) }}recherche/matricule/"+ donnee.slug;
+                    }
+                }
+            })
+        }
+    </script>
 {% endblock %}
 </body>
 </html>
