@@ -36,6 +36,24 @@ class CandidaterRepository extends ServiceEntityRepository
 			->getQuery()->getOneOrNullResult()
 			;
 	}
+	
+	public function findListCandidatByActivite($activite=null)
+	{
+		return $this
+			->createQueryBuilder('c')
+			->addSelect('a')
+			->addSelect('ca')
+			->addSelect('r')
+			->leftJoin('c.activite', 'a')
+			->leftJoin('c.candidat', 'ca')
+			->leftJoin('ca.region', 'r')
+			->where('a.id = :activite')
+			->orderBy('ca.nom', 'ASC')
+			->addOrderBy('ca.prenoms', 'ASC')
+			->setParameter('activite', $activite)
+			->getQuery()->getResult()
+			;
+ 	}
 
     // /**
     //  * @return Candidater[] Returns an array of Candidater objects

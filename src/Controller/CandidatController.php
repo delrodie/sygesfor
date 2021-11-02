@@ -36,6 +36,10 @@ class CandidatController extends AbstractController
 			$this->addFlash('danger', 'Attention vous avez déjà postulé à cette formation. Si vous pensez que c\'est une erreur merci de contacter le CONAFOR.');
 			return $this->render('candidat/existe.html.twig');
 		}
+		
+		if (!$matricule){
+			return $this->redirectToRoute('app_home');
+		}
 	    
 		$this->session->clear();
         return $this->render('candidat/index.html.twig', [

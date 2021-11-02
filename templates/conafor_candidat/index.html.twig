@@ -1,0 +1,108 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Liste des candidats{% endblock %}
+
+{% block body %}
+   <main>
+       <h2 class="dash-title">Liste des Candidats</h2>
+       <section class="recent">
+           <div class="tableau-grid">
+               <div class="activity-card" >
+                   {% for label, messages in app.flashes(['success', 'danger']) %}
+                       {% for message in messages %}
+                           <div class="flash-{{ label }} flash">
+                               {{ message }}
+                           </div>
+                       {% endfor %}
+                   {% endfor %}
+
+                   <h3></h3>
+
+                   <h3></h3>
+                   <div>
+                       <select name="activite_liste" id="activite_list">
+                           <option value="">-- Selectionnez l'activite --</option>
+                           {% for activite in activites %}
+                               <option value="{{ activite.id }}">{{ activite.nom }}</option>
+                           {% endfor %}
+                       </select>
+                   </div>
+                   <div class="table-responsive" id="impression">
+                       <table id="liste" class="display table">
+                           <thead>
+                           <tr>
+                               <th>Id</th>
+                               <th>Matricule</th>
+                               <th>Carte</th>
+                               <th>Nom</th>
+                               <th>Prenoms</th>
+                               <th>Date Naissance</th>
+                               <th>Lieu Naissance</th>
+                               <th>sexe</th>
+                               <th>Fonction</th>
+                               <th>Date d'entrée</th>
+                               <th>Contact</th>
+                               <th>Actions</th>
+                           </tr>
+                           </thead>
+                           <tbody>
+                           {% for candidat in candidats %}
+                               <tr>
+                                   <td>{{ loop.index }}</td>
+                                   <td>{{ candidat.matricule }}</td>
+                                   <td>{{ candidat.carte }}</td>
+                                   <td>{{ candidat.nom }}</td>
+                                   <td>{{ candidat.prenoms }}</td>
+                                   <td>{{ candidat.date_naissance }}</td>
+                                   <td>{{ candidat.lieu }}</td>
+                                   <td>{{ candidat.sexe }}</td>
+                                   <td>{{ candidat.fonction }}</td>
+                                   <td>{{ candidat.contact }}</td>
+                                   <td>{{ candidat.date_entree }}</td>
+                                   <td style="text-align: center">
+                                       {% if not candidat.validation %}
+                                           <a href="{{ absolute_url(path('conafor_candidat_show', {'slug': candidat.slug}) )}}" class="non-valide"><i class="ti-pencil-alt"></i></a>
+                                       {% else %}
+                                           <a href="{{ absolute_url(path('conafor_candidat_show', {'slug': candidat.slug}) )}}" class="valide"><i class="ti-check-box"></i></a>
+                                       {% endif %}
+                                   </td>
+                               </tr>
+                           {% endfor %}
+                           </tbody>
+                       </table>
+                   </div>
+               </div>
+           </div>
+       </section>
+   </main>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#liste').DataTable( {
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ],
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/fr_fr.json'
+                }
+            } );
+        } );
+    </script>
+{% endblock %}

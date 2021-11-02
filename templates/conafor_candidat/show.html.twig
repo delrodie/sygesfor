@@ -1,0 +1,75 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} {{ candidat.nom }} {{ candidat.prenoms }}{% endblock %}
+
+{% block body %}
+    <main>
+        <h2 class="dash-title">Candidature de {{ candidat.nom }}</h2>
+        <section class="recent">
+            <div class="tableau-grid">
+                <div class="activity-card candidat">
+                    <h2>Titre du stage: {{ activite.nom }}</h2>
+                    <div class="information">
+                        <div class="libelle">Matricule</div>
+                        <div class="resultat">{{ candidat.matricule }}</div>
+                    </div>
+                    <div class="information">
+                        <div class="libelle">Nom & Prenoms</div>
+                        <div class="resultat">{{ candidat.nom }} {{ candidat.prenoms }}</div>
+                    </div>
+                    <div class="information">
+                        <div class="libelle">Date & lieu de naissance</div>
+                        <div class="resultat">{{ candidat.dateNaissance|date('d-m-Y') }} à {{ candidat.lieuNaissance }}</div>
+                    </div>
+                    <div class="information">
+                        <div class="libelle">Sexe :</div>
+                        <div class="resultat">{{ candidat.sexe }} </div>
+                    </div>
+                    <div class="information">
+                        <div class="libelle">Region :</div>
+                        <div class="resultat">{{ candidat.region.nom }} </div>
+                    </div>
+                    <div class="information">
+                        <div class="libelle">Fonction :</div>
+                        <div class="resultat">{{ candidat.fonction }} </div>
+                    </div>
+                    <div class="information">
+                        <div class="libelle">Date d'entrée dans le scoutisme :</div>
+                        <div class="resultat">{{ candidat.dateEntree|date('d-m-Y') }} </div>
+                    </div>
+                    <div class="information">
+                        <div class="libelle">Profession :</div>
+                        <div class="resultat">{{ candidat.profession}} </div>
+                    </div>
+                    <div class="information">
+                        <div class="libelle">Niveau d'étude :</div>
+                        <div class="resultat">{{ candidat.niveauEtude}} </div>
+                    </div>
+                    <div class="information">
+                        <div class="libelle">Résidence :</div>
+                        <div class="resultat">{{ candidat.residence}} </div>
+                    </div>
+                    <div class="information">
+                        <div class="libelle">Email :</div>
+                        <div class="resultat">{{ candidat.email}} </div>
+                    </div>
+                    <div class="information">
+                        <div class="libelle">Contact :</div>
+                        <div class="resultat">{{ candidat.contact}} </div>
+                    </div>
+                    {% if not candidater.validation %}
+                        <div class="validation" style="text-align: right; margin: 50px;">
+                            <form action="{{ path('conafor_validation_candidat_index') }}" method="post">
+                                <input type="hidden" name="candidat" value="{{ candidat.matricule }}">
+                                <input type="hidden" name="activite" value="{{ activite.id }}">
+                                <button class="bouton">Valider</button>
+                            </form>
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+{% endblock %}

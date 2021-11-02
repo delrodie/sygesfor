@@ -525,6 +525,29 @@ button.danger:hover{
     background: rgba(187, 3, 3, 0.2);
     border: solid 1px rgba(187, 3, 3, 0.7);
 }
+.candidat h2{
+    margin: 20px auto;
+    text-align: center;
+    color: var(--main-color)
+}
+.candidat .information{
+    display: grid;
+    grid-template-columns: 30% 70%;
+}
+.candidat .libelle{
+    margin: auto auto 10px 30px;
+}
+.candidat .resultat{
+    font-weight: bold;
+}
+.valide{
+    color: green;
+    font-weight: bold;
+}
+.non-valide{
+    color: red;
+    font-weight: bold;
+}
 @media only screen and (max-width: 1200px){
 
     .sidebar{

@@ -82,6 +82,47 @@
 			return true;
 		}
 		
+		public function listeCandidat()
+		{
+			$activite = $this->em->getRepository(Activite::class)->findActiviteEnCour();
+			$candidats = $this->em->getRepository(Candidater::class)->findListCandidatByActivite($activite->getId());
+			$list=[]; $i=0; //dd($candidats);
+			foreach ($candidats as $candidat){
+				$list[$i++]=[
+					'matricule' => $candidat->getCandidat()->getMatricule(),
+					'carte' => $candidat->getCandidat()->getCarteScoute(),
+					'nom' => $candidat->getCandidat()->getNom(),
+					'prenoms' => $candidat->getCandidat()->getPrenoms(),
+					'date_naissance' => $candidat->getCandidat()->getDateNaissance(),
+					'lieu' => $candidat->getCandidat()->getLieuNaissance(),
+					'fonction' => $candidat->getCandidat()->getFonction(),
+					'email' => $candidat->getCandidat()->getEmail(),
+					'contact' => $candidat->getcandidat()->getContact(),
+					'slug' => $candidat->getCandidat()->getSlug(),
+					'region' => $candidat->getCandidat()->getRegion()->getNom(),
+					'sexe' => $candidat->getCandidat()->getSexe(),
+					'activite_nom' => $candidat->getActivite()->getNom(),
+					'activite_id' => $candidat->getActivite()->getId(),
+					'activite_slug' => $candidat->getActivite()->getSlug(),
+					'validation' => $candidat->getValidation(),
+					'date_entree' => $candidat->getCandidat()->getDateEntree(),
+					'validation' => $candidat->getValidation()
+				];
+			}
+			return $list;
+		}
+		
+		public function validation($candidat,$activite)
+		{
+			$candidater = $this->em->getRepository(Candidater::class)->findCandidature($candidat,$activite);
+			$candidater->setValidation(true);
+			$this->em->flush();
+			
+			// Envoie de mail au candidat
+			
+			return true;
+		}
+		
 		/**
 		 * Fonction pour arrondir au supérieur
 		 *
