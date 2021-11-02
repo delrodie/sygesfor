@@ -105,7 +105,6 @@
             var post_url = $(this).attr("action");
             var request_method = $(this).attr("method");
             var form_data = $(this).serialize();
-            //var montant = document.getElementById("montant").value;
             $.ajax({
                 url: post_url,
                 type: request_method,
@@ -126,7 +125,7 @@
 						'site_id': 356950,
 						"transaction_id": response.id_transaction,
 						"description": response.description,
-						"return_url": {{ absolute_url(path('recu_paiement')) }},
+						"return_url": '{{ absolute_url(path('recu_paiement')) }}',
 						"notify_url": '{{ absolute_url(path('cinetpay_notify')) }}',
 						"customer_id": response.matricule,
 						"customer_name": response.nom,

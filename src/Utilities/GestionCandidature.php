@@ -136,7 +136,7 @@
 		 * @param $candidaterID
 		 * @return array
 		 */
-		public function paiement($candidaterID)
+		public function paiement($candidaterID): array
 		{
 			// Variables
 			$id_transaction = time().''.substr(uniqid("",true), -9, 9);
@@ -163,7 +163,7 @@
 				'nom' => $candidater->getCandidat()->getNom(),
 				'prenoms' => $candidater->getCandidat()->getPrenoms(),
 				'region' => $candidater->getCandidat()->getRegion()->getNom(),
-				'description' => "Inscription à la formation par ".$candidater->getCandidat()->getNom()." ".$candidater->getCandidat()->getPrenoms().".",
+				'description' => "Inscription a la formation par ",
 				'matricule' => $candidater->getCandidat()->getMatricule()
 			];
 			

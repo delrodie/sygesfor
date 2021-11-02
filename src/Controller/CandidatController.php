@@ -7,6 +7,7 @@ use App\Entity\Candidater;
 use App\Entity\Sygesca\Membre;
 use App\Utilities\GestionCandidature;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -92,7 +93,7 @@ class CandidatController extends AbstractController
 	/**
 	 * @Route("/paiement/validation", name="candiat_paiement_validation", methods={"GET","POST"})
 	 */
-	public function validation(Request $request)
+	public function validation(Request $request): JsonResponse
 	{
 		//Initialisation
 		$encoders = [new XmlEncoder(), new JsonEncoder()];
@@ -100,11 +101,13 @@ class CandidatController extends AbstractController
 		$serializer = new Serializer($normalizers, $encoders);
 		
 		$candidater = $request->get('candidater');
+		if ($candidater)
+			$result = $this->_candidature->paiement($candidater);
+		else
+			return $this->json(['status'=>false]);
 		
-		$result = $this->_candidature->paiement($candidater);
-		
-		//dd($result);
-		$this->session->clear();
+		//dd($this->json($result));
+		//$this->session->clear();
 		
 		return $this->json($result);
 	}
