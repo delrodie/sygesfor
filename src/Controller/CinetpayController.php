@@ -123,8 +123,6 @@ class CinetpayController extends AbstractController
 							$this->addFlash('danger', 'Le paiement a échoué. Prière reprendre');
 							$view = $this->render('cinetpay/echec.html.twig');
 						}
-						
-						dd($donnee);
 					}
 				}
 				
