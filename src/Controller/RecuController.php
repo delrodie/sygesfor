@@ -26,7 +26,7 @@ class RecuController extends AbstractController
      */
     public function index(Request $request): Response
     {
-		$session = $this->session->get('candidater');
+		$session = $this->session->get('candidater'); dd($session);
 		if ($session)
 			$candidater = $this->getDoctrine()->getRepository(Candidater::class)->findOneBy(['token'=>$session]);
 		else
