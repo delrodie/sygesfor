@@ -68,7 +68,7 @@ class AjaxController extends AbstractController
 				'status' => false,
 			];
 		
-		$this->session->set('matricule', $matricule); dd($this->session->get('matricule'));
+		$this->session->set('matricule', $matricule); //dd($this->session->get('matricule'));
 		
 		return $this->json($data);
 		
