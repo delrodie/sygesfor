@@ -119,6 +119,11 @@ class Candidat
      */
     private $sexe;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $logo;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -356,17 +361,17 @@ class Candidat
 	 * @ORM\PrePersist
 	 */
 	public function setCreatedAtValue(): \Datetime
-         	{
-         		return $this->createAt = new \Datetime();
-         	}
+                  	{
+                  		return $this->createAt = new \Datetime();
+                  	}
 	
 	/**
 	 * @ORM\PreUpdate
 	 */
 	public function setUpdatedAtValue(): \DateTime
-         	{
-         		return $this->updatedAt = new \DateTime();
-         	}
+                  	{
+                  		return $this->updatedAt = new \DateTime();
+                  	}
 
     public function getSexe(): ?string
     {
@@ -376,6 +381,18 @@ class Candidat
     public function setSexe(?string $sexe): self
     {
         $this->sexe = $sexe;
+
+        return $this;
+    }
+
+    public function getLogo(): ?string
+    {
+        return $this->logo;
+    }
+
+    public function setLogo(?string $logo): self
+    {
+        $this->logo = $logo;
 
         return $this;
     }

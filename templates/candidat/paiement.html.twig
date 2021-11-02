@@ -105,6 +105,7 @@
             var post_url = $(this).attr("action");
             var request_method = $(this).attr("method");
             var form_data = $(this).serialize();
+            //var montant = document.getElementById("montant").value;
             $.ajax({
                 url: post_url,
                 type: request_method,
@@ -112,6 +113,7 @@
                 dataType: 'json',
 			}).done(function (response) {
 				console.log(response)
+				var candidate = response.id
 				$.ajax({
 					type: "POST",
 					url: "https://api-checkout.cinetpay.com/v2/payment",
@@ -134,8 +136,18 @@
 					console.log(result)
 					if (result.code == '201'){
                         $.ajax({
-							url: "{{ absolute_url('') }}"
-						})
+							url: "{{ absolute_url(path('cinetpay_paiement')) }}",
+							type: 'POST',
+							dataType: 'json',
+							data:{
+                                'api_response_id': result.api_response_id,
+								'token': result.data.payment_token,
+								'url': result.data.payment_url,
+								'candidater': candidate
+							}
+						}).done(function (res) {
+							window.location = res.url
+                        })
 					}
                 })
             })

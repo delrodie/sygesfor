@@ -148,9 +148,11 @@
 			$am = (int) $montant/(1 - 0.035);
 			$am = $this->arrondiSuperieur($am, 5);
 			
-			$candidater->setIdTransaction($id_transaction);
+			//$candidater->setIdTransaction($id_transaction);
 			$candidater->setStatusPaiement($status_paiement);
 			$candidater->setMontant($am);
+			
+			$this->em->flush();
 		
 			$data= [
 				'id' => $candidater->getId(),
@@ -164,6 +166,23 @@
 			];
 			
 			return $data;
+		}
+		
+		/**
+		 * Paiement cinetpay
+		 *
+		 * @param $data
+		 * @return Candidater|mixed|object|null
+		 */
+		public function cinetpay($data)
+		{
+			$candidate = $this->em->getRepository(Candidater::class)->findOneBy(['id'=>$data['candidate']]);
+			$candidate->setResponseId($data['response_id']);
+			$candidate->setToken($data['token']);
+			$candidate->setUrl($data['url']);
+			$this->em->flush();
+			
+			return $candidate;
 		}
 		
 		/**

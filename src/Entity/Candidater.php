@@ -58,6 +58,21 @@ class Candidater
      */
     private $statusPaiement;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $token;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $url;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $responseId;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -127,17 +142,17 @@ class Candidater
 	 * @ORM\PrePersist
 	 */
 	public function setCreatedAtValue()
-                           	{
-                           		$this->createdAt = new \DateTime();
-                           	}
+                                                      	{
+                                                      		$this->createdAt = new \DateTime();
+                                                      	}
 	
 	/**
 	 * @ORM\PreUpdate 
 	 */
 	public function setUpdatedAtValue()
-                           	{
-                           		$this->updatedAt = new \DateTime();
-                           	}
+                                                      	{
+                                                      		$this->updatedAt = new \DateTime();
+                                                      	}
 
     public function getMontant(): ?int
     {
@@ -171,6 +186,42 @@ class Candidater
     public function setStatusPaiement(?string $statusPaiement): self
     {
         $this->statusPaiement = $statusPaiement;
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(?string $url): self
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    public function getResponseId(): ?string
+    {
+        return $this->responseId;
+    }
+
+    public function setResponseId(?string $responseId): self
+    {
+        $this->responseId = $responseId;
 
         return $this;
     }
