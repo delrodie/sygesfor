@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Matricule non trouvé{% endblock %}
+
+{% block body %}
+	<div class="wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12"  data-aos="flip-right" data-aos-duration="3000">
+					<h3>Oups!!!</h3>
+					<h5>Matricule non trouvé</h5>
+					<p>Le matricule <strong>{{ matricule }}</strong> n'a pas été trouvé et ce pour soit:</p>
+					<ol>
+						<li>
+							Vous ne vous etes pas encore acquitté de la cotisation nationale de l'année encours
+							(<a href="https//adhesion.scoutascci.org/">Cliquez ici</a>)
+						</li>
+						<li>
+							Le matricule renseigné n'est pas le bon
+							(<a href="{{ absolute_url(path('app_home')) }}">Veuillez reprendre</a>)
+						</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+

@@ -18,6 +18,17 @@ class ActiviteRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Activite::class);
     }
+	
+	public function findActiviteEnCour()
+	{
+		return $this->createQueryBuilder('a')
+			->where('a.debutPeriode <= :date')
+			->andWhere('a.finPeriode >= :date')
+			->setParameter('date', date('Y-m-d'))
+			->setMaxResults(1)
+			->getQuery()->getOneOrNullResult()
+			;
+	}
 
     // /**
     //  * @return Activite[] Returns an array of Activite objects

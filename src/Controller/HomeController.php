@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Activite;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
@@ -13,8 +16,21 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
+		
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
+            'activite' => $this->getDoctrine()->getRepository(Activite::class)->findActiviteEnCour(),
         ]);
     }
+	
+	/**
+	 * @Route("/echec", name="app_recherche_echec")
+	 */
+	public function echec(Request $request, SessionInterface $session)
+	{
+		$matricule = $session->get('matricule');
+		$session->clear();
+		return $this->render('home/echec.html.twig',[
+			'matricule' => $matricule
+		]);
+	}
 }
