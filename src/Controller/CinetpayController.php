@@ -107,6 +107,11 @@ class CinetpayController extends AbstractController
 						$result =  file_get_contents('https://api-checkout.cinetpay.com/v2/payment/check', false, $context);
 						
 						$donnee = json_decode($result);
+						if ($donnee->code === '00'){
+							$candidater->setStatusPaiement('VALID');
+							$candidater->setOperateurMobile($donnee->data->payment_method);
+							dd($candidater);
+						}
 						dd($donnee);
 					}
 				}

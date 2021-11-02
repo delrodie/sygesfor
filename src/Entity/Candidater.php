@@ -73,6 +73,21 @@ class Candidater
      */
     private $responseId;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $operateurMobile;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $operatorId;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $paymentDate;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -142,17 +157,17 @@ class Candidater
 	 * @ORM\PrePersist
 	 */
 	public function setCreatedAtValue()
-                                                      	{
-                                                      		$this->createdAt = new \DateTime();
-                                                      	}
+                                                                                 	{
+                                                                                 		$this->createdAt = new \DateTime();
+                                                                                 	}
 	
 	/**
 	 * @ORM\PreUpdate 
 	 */
 	public function setUpdatedAtValue()
-                                                      	{
-                                                      		$this->updatedAt = new \DateTime();
-                                                      	}
+                                                                                 	{
+                                                                                 		$this->updatedAt = new \DateTime();
+                                                                                 	}
 
     public function getMontant(): ?int
     {
@@ -222,6 +237,42 @@ class Candidater
     public function setResponseId(?string $responseId): self
     {
         $this->responseId = $responseId;
+
+        return $this;
+    }
+
+    public function getOperateurMobile(): ?string
+    {
+        return $this->operateurMobile;
+    }
+
+    public function setOperateurMobile(?string $operateurMobile): self
+    {
+        $this->operateurMobile = $operateurMobile;
+
+        return $this;
+    }
+
+    public function getOperatorId(): ?string
+    {
+        return $this->operatorId;
+    }
+
+    public function setOperatorId(?string $operatorId): self
+    {
+        $this->operatorId = $operatorId;
+
+        return $this;
+    }
+
+    public function getPaymentDate(): ?string
+    {
+        return $this->paymentDate;
+    }
+
+    public function setPaymentDate(?string $paymentDate): self
+    {
+        $this->paymentDate = $paymentDate;
 
         return $this;
     }
