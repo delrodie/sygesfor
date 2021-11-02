@@ -1,20 +1,98 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CinetpayController!{% endblock %}
+{% block title %}{{ parent() }} Candidature de {{ candidater.candidat.nom }} {{ candidater.candidat.prenoms }}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="wrapper page-secondaire">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h5 class="titre">Formulaire</h5>
+                </div>
+            </div>
+            <form action="{{ path('candiat_paiement_validation') }}" method="post" id="paiement">
+                <div class="row">
+                    <div class="col">
+                        <h6 class="scoute">Informations scoutes</h6>
+                        <div class="info-scoute row form-group">
+                            <div class="col-md-6">
+                                <label for="scout_nom" class="form-label">Nom</label>
+                                <input type="text" class="form-control" value="{{ candidater.candidat.nom }}" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="scout_prenom" class="form-label">Prenoms</label>
+                                <input type="text" class="form-control" value="{{ candidater.candidat.prenoms }}" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="scout_datenaissance" class="form-label">Date de naissance</label>
+                                <input type="date" class="form-control" value="{{ candidater.candidat.dateNaissance }}" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="scout_lieunaissance" class="form-label">Date de naissance</label>
+                                <input type="text" class="form-control" value="{{ candidater.candidat.lieuNaissance }}" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="scout_region" class="form-label">Region</label>
+                                <input type="text" class="form-control" value="{{ candidater.candidat.region.nom }}" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="scout_fonction" class="form-label">Fonction</label>
+                                <input type="text" class="form-control" value="{{ candidater.candidat.fonction }}" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="scout_matricule" class="form-label">Matricule</label>
+                                <input type="text" class="form-control" value="{{ candidater.candidat.matricule }}" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="scout_cartescoute" class="form-label">Carte scoute</label>
+                                <input type="text" class="form-control" value="{{ candidater.candidat.carteScoute }}" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="scout_dateentree" class="form-label">Date d'entrée dans le scoutisme <span style="color: red; font-size: .9rem; font-weight:bold;">*</span></label>
+                                <input type="text" class="form-control" value="{{ candidater.candidat.dateEntree }}" readonly>
+                            </div>
+                        </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/delrodie/www/applications/ascci/sygesfor/src/Controller/CinetpayController.php'|file_link(0) }}">src/Controller/CinetpayController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/delrodie/www/applications/ascci/sygesfor/templates/cinetpay/index.html.twig'|file_link(0) }}">templates/cinetpay/index.html.twig</a></code></li>
-    </ul>
-</div>
+                        <h6 class="perso">Informations professionnelles</h6>
+                        <div class="info-perso row form-group">
+                            <div class="col-md-6">
+                                <label for="scout_etude" class="form-label">Niveau d'étude</label>
+                                <input type="text" class="form-control" value="{{ candidater.candidat.niveauEtude }}" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="scout_profession" class="form-label">Profession actuelle</label>
+                                <input type="text" class="form-control" value="{{ candidater.candidat.profession }}" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="scout_residence" class="form-label">Lieu de résidence</label>
+                                <input type="text" class="form-control" value="{{ candidater.candidat.residence }}" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="scout_email" class="form-label">Adresse email</label>
+                                <input type="email" class="form-control" value="{{ candidater.candidat.email }}" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="scout_contact" class="form-label">Contact</label>
+                                <input type="text" class="form-control" value="{{ candidater.candidat.contact }}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5 mb-5">
+                    <div class="col text-center montant">
+                        Montant: <span>{{ candidater.activite.montant|number_format(0,'','.') }}</span> FCFA
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col bouton text-right">
+                        <input type="hidden" name="scout_candidat" value="{{ candidater.candidat.matricule }}">
+                        <input type="hidden" name="montant" value="{{ candidater.activite.montant }}">
+                        <input type="hidden" name="candidater" value="{{ candidater.id }}">
+                        <a href="{{ path('app_home') }}" class="btn btn-outline-secondary btn-lg"><i class="las la-reply"></i> Annuler</a>
+                        <button type="submit" class="btn btn-primary btn-lg"><i class="las la-donate"></i> Payer </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}

@@ -110,19 +110,35 @@ class CinetpayController extends AbstractController
 						if ($donnee->code === '00'){
 							$candidater->setStatusPaiement('VALID');
 							$candidater->setOperateurMobile($donnee->data->payment_method);
-							dd($candidater);
+							$candidater->setOperatorId($donnee->operator_id);
+							$candidater->setPaymentDate($donnee->payment_date);
+							$this->em->flush();
+							$view = $this->render('cinetpay/index.html.twig',[
+								'candidate' =>  $candidater
+							]);
+						}elseif ($donnee->code === '602'){
+							$this->addFlash('danger', 'Le solde de paiement est insuffisant. Merci de recharger ton compte.');
+							$view = $this->render('cinetpay/echec.html.twig');
+						}else{
+							$this->addFlash('danger', 'Le paiement a échoué. Prière reprendre');
+							$view = $this->render('cinetpay/echec.html.twig');
 						}
+						
 						dd($donnee);
 					}
 				}
 				
 			}catch (\Exception $e){
 				echo "Erreur :". $e->getMessage();
+				$this->addFlash('danger', "Erreur : ".$e->getMessage());
+				$view = $this->render('cinetpay/echec.html.twig');
 			}
 		}else{
 			throw new \Exception("Echec! Page inaccessible.!");
+			$this->addFlash('danger', 'Echec: Page inaccessible.!');
+			$view = $this->render('cinetpay/echec.html.twig');
 		}
 		
-		return $this->redirectToRoute('app_home');
+		return $view;
 	}
 }
