@@ -36,7 +36,7 @@ class CandidatController extends AbstractController
      */
     public function index(Request $request): Response
     {
-	    $matricule = $this->session->get('matricule'); dd($matricule);
+	    $matricule = $this->session->get('matricule'); //dd($matricule);
 	    $candidat = $this->getDoctrine()->getRepository(Membre::class, 'sygesca')->findOneBy(['matricule'=>$matricule]);
 	    
 		if($this->_candidature->verifCandidature($matricule)){
