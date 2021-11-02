@@ -106,12 +106,12 @@ class CinetpayController extends AbstractController
 						// Execution de la requete
 						$result =  file_get_contents('https://api-checkout.cinetpay.com/v2/payment/check', false, $context);
 						
-						$donnee = json_decode($result); dd($donnee);
+						$donnee = json_decode($result); //dd($donnee);
 						if ($donnee->code === '00'){
 							$candidater->setStatusPaiement('VALID');
 							$candidater->setOperateurMobile($donnee->data->payment_method);
-							$candidater->setOperatorId($donnee->operator_id);
-							$candidater->setPaymentDate($donnee->payment_date);
+							$candidater->setOperatorId($donnee->data->operator_id);
+							$candidater->setPaymentDate($donnee->data->payment_date);
 							$this->em->flush();
 							$view = $this->render('cinetpay/index.html.twig',[
 								'candidate' =>  $candidater
