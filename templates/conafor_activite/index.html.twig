@@ -21,12 +21,13 @@
                     <div class="table-responsive" id="impression">
                         <table id="liste" class="display table">
                             <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Code</th>
-                                <th>Nom</th>
-                                <th>Période activité</th>
-                                <th>Période inscription</th>
+                            <tr style="text-align:center;">
+                                <th>ID</th>
+                                <th>CODE</th>
+                                <th>NOM</th>
+                                <th>MONTANT</th>
+                                <th>PERIODE ACTIVITE</th>
+                                <th>TERIODE INSCRIPTION</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -37,8 +38,9 @@
                                     <td>
                                         <a href="{{ path('conafor_activite_edit', {'id': activite.id}) }}"> {{ activite.nom }}</a>
                                     </td>
-                                    <td>{{ activite.debutActivite|date('d-m-Y') }} au {{ activite.finActivite|date('d-m-Y')  }}</td>
-                                    <td>{{ activite.debutPeriode|date('d-m-Y')  }} - {{ activite.finPeriode|date('d-m-Y')  }}</td>
+                                    <td style="text-align:center;">{{ activite.montant|number_format(0,'',' ') }}</td>
+                                    <td style="text-align:center;">{{ activite.debutActivite|date('d-m-Y') }} au {{ activite.finActivite|date('d-m-Y')  }}</td>
+                                    <td style="text-align:center;"> {{ activite.debutPeriode|date('d-m-Y')  }} - {{ activite.finPeriode|date('d-m-Y')  }}</td>
                                 </tr>
                             {% endfor %}
                             </tbody>

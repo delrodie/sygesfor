@@ -20,7 +20,7 @@ class ActiviteType extends AbstractType
             ->add('finActivite', TextType::class,['attr'=>['data-toggle'=>"datepicker"]])
             ->add('debutPeriode', TextType::class,['attr'=>['data-toggle'=>"datepicker"]])
             ->add('finPeriode', TextType::class,['attr'=>['data-toggle'=>"datepicker"]])
-            //->add('slug')
+            ->add('montant')
             //->add('createdAt')
         ;
     }

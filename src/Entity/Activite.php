@@ -63,6 +63,11 @@ class Activite
      */
     private $createdAt;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $montant;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -180,7 +185,19 @@ class Activite
 	 * @ORM\PrePersist
 	 */
 	public function setCreatedAtValue()
-	{
-		$this->createdAt = new \DateTime();
-	}
+         	{
+         		$this->createdAt = new \DateTime();
+         	}
+
+    public function getMontant(): ?int
+    {
+        return $this->montant;
+    }
+
+    public function setMontant(?int $montant): self
+    {
+        $this->montant = $montant;
+
+        return $this;
+    }
 }
