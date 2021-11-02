@@ -77,6 +77,7 @@
                                 }
                                 let matricule = response.matricule;
                                 //console.log(matricule)
+                                console.log(response)
                                 return response.json()
 
                             })
@@ -94,8 +95,8 @@
                         window.location = "{{ absolute_url(path('app_recherche_echec')) }}"
                     }else{
                         console.log(donnee.matricule)
-                        //dump();
-                        window.location = "{{ absolute_url(path('candidat_index')) }}";
+                        console.log(donnee)
+                        //window.location = "{{ absolute_url(path('candidat_index')) }}";
                         //window.location = "{{ absolute_url(path('app_home')) }}recherche/matricule/"+ donnee.slug;
                     }
                 }
