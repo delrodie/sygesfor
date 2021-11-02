@@ -57,16 +57,23 @@ class AjaxController extends AbstractController
 		
 		$activite = $this->getDoctrine()->getRepository(Activite::class)->findActiviteEnCour();
 		$candidater = $this->getDoctrine()->getRepository(Candidater::class)->findCandidature($matricule, $activite->getId());
-		if ($candidater->getValidation())
+		if ($candidater){
+			if ($candidater->getValidation())
+				$data = [
+					'id' => $candidater->getId(),
+					'status' => true,
+				];
+			else
+				$data = [
+					'id' => $candidater->getId(),
+					'status' => false,
+				];
+		}else
 			$data = [
-				'id' => $candidater->getId(),
-				'status' => true,
+				'id' => null,
+				'status' => false
 			];
-		else
-			$data = [
-				'id' => $candidater->getId(),
-				'status' => false,
-			];
+		
 		
 		$this->session->set('matricule', $matricule); //dd($this->session->get('matricule'));
 		
