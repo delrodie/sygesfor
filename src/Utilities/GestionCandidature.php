@@ -12,10 +12,12 @@
 	class GestionCandidature
 	{
 		private $em;
+		private $_photo;
 		
-		public function __construct(EntityManagerInterface $em)
+		public function __construct(EntityManagerInterface $em, GestionPhoto $_photo)
 		{
 			$this->em = $em;
+			$this->_photo = $_photo;
 		}
 		
 		public function verifCandidature($matricule): bool
@@ -48,6 +50,14 @@
 				'email' => $this->validForm($request->get('scout_email')),
 				'contact' => $this->validForm($request->get('scout_contact')),
 			];
+			
+			// traitement de la photo
+			$mediaFile = $request->files->get('scout_photo');
+			$media = null;
+			if ($mediaFile){
+				$media = $this->_photo->upload($mediaFile, 'photo');
+			}
+			
 			$region = $this->em->getRepository(Region::class)->findOneBy(['id'=>$participant['region']]);
 			//dd($region);
 			$candidature = new Candidat();
@@ -67,6 +77,8 @@
 			$candidature->setSlug($participant['slug']);
 			$candidature->setRegion($region);
 			$candidature->setSexe($participant['sexe']); //dd($candidature);
+			$candidature->setPhoto($media);
+			//dd($candidature);
 			
 			$this->em->persist($candidature);
 			$this->em->flush();

@@ -96,4 +96,9 @@
         padding: 120px 10px 100px;
         margin: 0;
     }
+    .bouton input,
+    .bouton a.btn{
+        margin: 10px auto;
+        float: left;
+    }
 }

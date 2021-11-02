@@ -1,0 +1,45 @@
+<div class="info-scoute text-left row form-group">
+	<div class="col-md-6 mt-3 text-left" style="text-align:left;">
+		<label for="scout_nom" class="form-label">Nom</label>
+		<input type="text" class="form-control" value="{{ candidat.nom }}" readonly>
+	</div>
+	<div class="col-md-6 mt-3 text-left" style="text-align:left;">
+		<label for="scout_prenom" class="form-label">Prenoms</label>
+		<input type="text" class="form-control" value="{{ candidat.prenoms }}" readonly>
+	</div>
+	<div class="col-md-6 mt-3 text-left" style="text-align:left;">
+		<label for="scout_datenaissance" class="form-label">Date de naissance</label>
+		<input type="date" class="form-control" value="{{ candidat.dateNaissance }}" readonly>
+	</div>
+	<div class="col-md-6 mt-3" style="text-align:left;">
+		<label for="scout_lieunaissance" class="form-label">Date de naissance</label>
+		<input type="text" class="form-control" value="{{ candidat.lieuNaissance }}" readonly>
+	</div>
+	<div class="col-md-6 mt-3" style="text-align:left;">
+		<label for="scout_region" class="form-label">Region</label>
+		<input type="text" class="form-control" value="{{ candidat.groupe.district.region.nom }}" readonly>
+	</div>
+	<div class="col-md-6 mt-3" style="text-align:left;">
+		<label for="scout_fonction" class="form-label">Fonction</label>
+		<input type="text" class="form-control" value="{{ candidat.fonction }}" readonly>
+	</div>
+	<div class="col-md-6 mt-3" style="text-align:left;">
+		<label for="scout_matricule" class="form-label">Matricule</label>
+		<input type="text" class="form-control" value="{{ candidat.matricule }}" readonly>
+	</div>
+	<div class="col-md-6 mt-3" style="text-align:left;">
+		<label for="scout_cartescoute" class="form-label">Carte scoute</label>
+		<input type="text" class="form-control" value="{{ candidat.carte }}" readonly>
+	</div>
+	<div class="col-md-6 mt-3" style="text-align:left;">
+		<label for="scout_dateentree" class="form-label">Date d'entrée dans le scoutisme <span style="color: red; font-size: .9rem; font-weight:bold;">*</span></label>
+		<select name="scout_dateentree" id="" class="form-control date">
+			<option value=""></option>
+		</select>
+
+	</div>
+	<div class="col-md-6 mt-3" style="text-align:left;">
+		<label for="scout_photo" class="form-label">Photo scout <span style="color: red; font-size: .9rem; font-weight:bold;">*</span></label>
+		<input type="file" class="dropify-fr" name="scout_photo" required data-preview=".preview">
+	</div>
+</div>

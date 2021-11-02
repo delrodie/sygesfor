@@ -119,6 +119,14 @@ footer a{
     color: var(--vert);
     margin-top: 50px;
 }
+.page-secondaire h6.participant{
+    color: orangered;
+    margin-top: 50px;
+}
+.page-secondaire h6.formateur{
+    color: darkslategray;
+    margin-top: 50px;
+}
 .page-secondaire .form-group{
     margin-left: 1px;
     padding-left: 25px;
@@ -128,6 +136,12 @@ footer a{
 }
 .page-secondaire .info-perso{
     border-left: solid 5px var(--vert)
+}
+.page-secondaire .info-participant{
+    border-left: solid 5px orangered;
+}
+.page-secondaire .info-formateur{
+    border-left: solid 5px darkslategray;
 }
 .form-group div{
     margin-bottom: 20px;

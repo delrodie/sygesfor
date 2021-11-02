@@ -4,101 +4,95 @@
 
 {% block body %}
 	<div class="wrapper page-secondaire">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<h5 class="titre">Formulaire</h5>
-				</div>
-			</div>
-			<form action="{{ path('candidat_new') }}" method="post">
-			<div class="row">
-				<div class="col">
-						<h6 class="scoute">Informations scoutes</h6>
-						<div class="info-scoute row form-group">
-							<div class="col-md-6">
-								<label for="scout_nom" class="form-label">Nom</label>
-								<input type="text" class="form-control" value="{{ candidat.nom }}" readonly>
-							</div>
-							<div class="col-md-6">
-								<label for="scout_prenom" class="form-label">Prenoms</label>
-								<input type="text" class="form-control" value="{{ candidat.prenoms }}" readonly>
-							</div>
-							<div class="col-md-6">
-								<label for="scout_datenaissance" class="form-label">Date de naissance</label>
-								<input type="date" class="form-control" value="{{ candidat.dateNaissance }}" readonly>
-							</div>
-							<div class="col-md-6">
-								<label for="scout_lieunaissance" class="form-label">Date de naissance</label>
-								<input type="text" class="form-control" value="{{ candidat.lieuNaissance }}" readonly>
-							</div>
-							<div class="col-md-6">
-								<label for="scout_region" class="form-label">Region</label>
-								<input type="text" class="form-control" value="{{ candidat.groupe.district.region.nom }}" readonly>
-							</div>
-							<div class="col-md-6">
-								<label for="scout_fonction" class="form-label">Fonction</label>
-								<input type="text" class="form-control" value="{{ candidat.fonction }}" readonly>
-							</div>
-							<div class="col-md-6">
-								<label for="scout_matricule" class="form-label">Matricule</label>
-								<input type="text" class="form-control" value="{{ candidat.matricule }}" readonly>
-							</div>
-							<div class="col-md-6">
-								<label for="scout_cartescoute" class="form-label">Carte scoute</label>
-								<input type="text" class="form-control" value="{{ candidat.carte }}" readonly>
-							</div>
-							<div class="col-md-6">
-								<label for="scout_dateentree" class="form-label">Date d'entrée dans le scoutisme <span style="color: red; font-size: .9rem; font-weight:bold;">*</span></label>
-								<input type="date" class="form-control" name="scout_dateentree" required autocomplete="off">
-							</div>
-						</div>
 
-						<h6 class="perso">Informations professionnelles</h6>
-						<div class="info-perso row form-group">
-							<div class="col-md-6">
-								<label for="scout_etude" class="form-label">Niveau d'étude</label>
-								<select name="scout_niveau_etude" id="" class="form-control">
-									<option value="">-- Selectionnez votre niveau d'étude --</option>
-									<option value=""></option>
-									<option value="COLLEGE">COLLEGE</option>
-									<option value="LYCEE">LYCEE</option>
-									<option value="BAC">BAC</option>
-									<option value="BAC+1">BAC + 1</option>
-									<option value="BAC+2"> BAC + 2</option>
-									<option value="BAC+3">BAC + 3</option>
-									<option value="BAC+4">BAC + 4</option>
-									<option value="BAC+5">BAC + 5</option>
-									<option value="BAC+6">BAC + 6</option>
-									<option value="BAC+7+">BAC + 7+</option>
-								</select>
-							</div>
-							<div class="col-md-6">
-								<label for="scout_profession" class="form-label">Profession actuelle</label>
-								<input type="text" class="form-control" name="scout_profession" autocomplete="off">
-							</div>
-							<div class="col-md-6">
-								<label for="scout_residence" class="form-label">Lieu de résidence</label>
-								<input type="text" class="form-control" name="scout_residence" autocomplete="off">
-							</div>
-							<div class="col-md-6">
-								<label for="scout_email" class="form-label">Adresse email</label>
-								<input type="email" class="form-control" name="scout_email" autocomplete="off">
-							</div>
-							<div class="col-md-6">
-								<label for="scout_contact" class="form-label">Contact</label>
-								<input type="text" class="form-control" name="scout_contact" autocomplete="off">
-							</div>
+		<div class="container-fluid">
+			<div class="row justify-content-center mt-0">
+				<div class="col-12 p-0 mt-3 mb-2">
+					<div class="row">
+						<div class="col-md-12 mx-0">
+							<form action="{{ path('candidat_new') }}" method="post" id="msform" enctype="multipart/form-data">
+								<!-- progressbar -->
+								<ul id="progressbar" style="text-align:center;">
+									<li class="active" id="account"><strong>Informations scoutes</strong></li>
+									<li id="personal"><strong>Informations personelles</strong></li>
+									<li id="payment"><strong>Formations</strong></li>
+									<li id="confirm"><strong>Confirmation</strong></li>
+								</ul> <!-- fieldsets -->
+								<fieldset class="text-center" style="text-align:left;">
+									<h6 class="scoute" style="text-align:left;">Informations scoutes</h6>
+									{{ include('candidat/_scoute.html.twig') }}
+									<input type="button" name="previous" class="previous action-button-previous" value="Précédent" /> <input type="button" name="next" class="next action-button" value="Suivant" />
+								</fieldset>
+								<fieldset class="text-center" style="text-align:left;">
+									<h6 class="perso" style="text-align:left;">Informations professionnelles</h6>
+									{{ include('candidat/_personnel.html.twig') }}
+									<input type="button" name="previous" class="previous action-button-previous" value="Précédent" /> <input type="button" name="next" class="next action-button" value="Suivant" />
+								</fieldset>
+								<fieldset class="text-center" style="text-align:left;">
+									<h6 class="participant" style="text-align:left;">Derniers stages suivis en tant que participant</h6>
+									{{ include('candidat/_participant.html.twig') }}
+
+									<h6 class="formateur" style="text-align:left;">Derniers stages encadrés ou animés</h6>
+									{{ include('candidat/_formateur.html.twig') }}
+									<input type="button" name="previous" class="previous action-button-previous" value="Précédent" /> <input type="button" name="make_payment" class="next action-button" value="Confirmer" />
+								</fieldset>
+								<fieldset>
+									<div class="form-card">
+										<h2 class="fs-title text-center">Bravo !!!</h2> <br><br>
+										<div class="row justify-content-center">
+											<div class="col-3"> <img src="https://img.icons8.com/color/96/000000/ok--v2.png" class="fit-image"> </div>
+										</div> <br><br>
+
+										<div class="row">
+											<div class="col bouton text-center">
+												<input type="hidden" name="scout_candidat" value="{{ candidat.matricule }}">
+												<a href="{{ path('app_home') }}" class="btn btn-outline-secondary btn-lg"><i class="las la-reply"></i> Annuler</a>
+												<button type="submit" class="btn btn-primary btn-lg"><i class="las la-save"></i> Envoyer </button>
+											</div>
+										</div>
+									</div>
+								</fieldset>
+							</form>
 						</div>
+					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col bouton text-right">
-					<input type="hidden" name="scout_candidat" value="{{ candidat.matricule }}">
-					<a href="{{ path('app_home') }}" class="btn btn-outline-secondary btn-lg"><i class="las la-reply"></i> Paiement</a>
-					<button type="submit" class="btn btn-primary btn-lg"><i class="las la-save"></i> Enregistrer </button>
-				</div>
-			</div>
-			</form>
 		</div>
 	</div>
 {% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+		$(document).ready(function () {
+			var ladate = new Date();
+            var annee = ladate.getFullYear()
+            $('.date').empty();
+            $('.date').append("<option value=''>-</option>")
+			for (let i = annee; i > 1936; i--){
+                $('.date').append(
+                    "<option value="+i+">"+i+"</option>"
+				)
+			}
+        })
+	</script>
+	<script src="{{ absolute_url(asset('assets/js/wizard.js')) }}"></script>
+	<script src="{{ absolute_url(asset('assets/plugins/dropify/js/dropify.min.js')) }}"></script>
+	<script src="{{ absolute_url(asset('assets/plugins/dropify/js/upload-init.js')) }}"></script>
+	<script type='text/javascript'>
+
+        $("input[data-preview]").change(function() {
+            var $input = $(this);
+            var fileReader = new FileReader();
+            fileReader.readAsDataURL(this.files[0]);
+            fileReader.onload = function(fileEvent) {
+                $($input.data('preview')).attr('src', fileEvent.target.result);
+            };
+        });
+	</script>
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ absolute_url(asset('assets/css/wizard.css')) }}">
+	<link rel="stylesheet" href="{{ absolute_url(asset('assets/plugins/dropify/css/dropify.min.css')) }}">
+	{{ parent() }}
+{% endblock %}
+

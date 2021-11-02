@@ -61,6 +61,7 @@ class CandidatController extends AbstractController
 	public function new(Request $request)
 	{
 		$candidat = $this->getDoctrine()->getRepository(Membre::class, 'sygesca')->findOneBy(['matricule'=>$request->get('scout_candidat')]);
+		
 		$this->_candidature->formulaire($request, $candidat);
 		
 		$this->addFlash('success', 'Votre candidature a bien été envoyée. Vous recevrez un email de confirmation');
