@@ -38,6 +38,7 @@ class AjaxController extends AbstractController
 		$data = $this->getDoctrine()->getRepository(Membre::class, 'sygesca')->findOneBy(['matricule'=>$matricule]);
 		
 		$this->session->set('matricule', $matricule);
+		//$this->session->set('candidat', $data['matricule']);
 		
         return $this->json($data);
     }
