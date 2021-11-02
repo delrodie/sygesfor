@@ -126,7 +126,7 @@
 						"transaction_id": response.id_transaction,
 						"description": "Inscription au camp de formation",
 						"return_url": '{{ absolute_url(path('app_home')) }}',
-						"notify_url": '{{ absolute_url(path('candidat_index')) }}',
+						"notify_url": '{{ absolute_url(path('cinetpay_notify')) }}',
 						"customer_id": response.id,
 						"customer_name": response.nom,
 						"customer_surname": response.prenoms,
