@@ -125,7 +125,7 @@
 						'site_id': 356950,
 						"transaction_id": response.id_transaction,
 						"description": response.description,
-						"return_url": '{{ absolute_url(path('recu_paiement',{'matricule': response.matricule})) }}',
+						"return_url": '{{ absolute_url(path('recu_paiement', {'matricule': response.matricule})) }}',
 						"notify_url": '{{ absolute_url(path('cinetpay_notify')) }}',
 						"customer_id": response.matricule,
 						"customer_name": response.nom,
