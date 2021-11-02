@@ -113,7 +113,7 @@ class CinetpayController extends AbstractController
 							$candidater->setOperatorId($donnee->data->operator_id);
 							$candidater->setPaymentDate($donnee->data->payment_date);
 							$this->em->flush();
-							$view = $this->render('cinetpay/index.html.twig',[
+							return $this->render('cinetpay/index.html.twig',[
 								'candidate' =>  $candidater
 							]);
 						}elseif ($donnee->code === '602'){
@@ -123,7 +123,7 @@ class CinetpayController extends AbstractController
 							$this->addFlash('danger', 'Le paiement a échoué. Prière reprendre');
 							$view = $this->render('cinetpay/echec.html.twig');
 						}
-						return $view;
+						
 					}
 				}
 				
