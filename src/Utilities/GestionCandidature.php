@@ -148,7 +148,7 @@
 			$am = (int) $montant/(1 - 0.035);
 			$am = $this->arrondiSuperieur($am, 5);
 			
-			//$candidater->setIdTransaction($id_transaction);
+			$candidater->setIdTransaction($id_transaction);
 			$candidater->setStatusPaiement($status_paiement);
 			$candidater->setMontant($am);
 			
