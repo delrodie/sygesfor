@@ -94,7 +94,7 @@ class CinetpayController extends AbstractController
 						$options = [
 							'http' => [
 								'method' =>"POST",
-								'header' => "Content-Type: application/json",
+								'header' => "Content-Type: application/json\r\n",
 								'ignore_errors' => true,
 								'content' => $this->json($data)
 							]
@@ -104,15 +104,15 @@ class CinetpayController extends AbstractController
 						$context = stream_context_create($options); //dd($context);
 						
 						// Execution de la requete
-						//echo file_get_contents('https://api-checkout.cinetpay.com/v2/payment/check', false, $context);
+						$result =  file_get_contents('https://api-checkout.cinetpay.com/v2/payment/check', false, $context);
 						
-						$response = $this->client->request('POST', $url,[
+						/*$response = $this->client->request('POST', $url,[
 							'headers' => [
 								'Accept' => 'application/json'
 							],
 							'json'=> $data
-						]);
-						dd($response);
+						]);*/
+						dd($result);
 					}
 				}
 				
