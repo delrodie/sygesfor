@@ -22,13 +22,13 @@ class RecuController extends AbstractController
 	}
 	
     /**
-     * @Route("/{matricule}", name="recu_paiement")
+     * @Route("/", name="recu_paiement")
      */
-    public function index(Request $request, $matricule): Response
+    public function index(Request $request): Response
     {
 		$session = $this->session->get('candidater');
 		if ($session)
-			$candidater = $this->getDoctrine()->getRepository(Candidater::class)->findOneBy(['matricule'=>$matricule]);
+			$candidater = $this->getDoctrine()->getRepository(Candidater::class)->findOneBy(['token'=>$session]);
 		else
 			return $this->forward('App\Controller\HomeController::index');
 		

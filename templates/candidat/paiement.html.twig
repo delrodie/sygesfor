@@ -114,6 +114,7 @@
 			}).done(function (response) {
 				console.log(response)
 				var candidate = response.id
+				var matricule = response.matricule
 				$.ajax({
 					type: "POST",
 					url: "https://api-checkout.cinetpay.com/v2/payment",
@@ -125,7 +126,7 @@
 						'site_id': 356950,
 						"transaction_id": response.id_transaction,
 						"description": response.description,
-						"return_url": '{{ absolute_url(path('recu_paiement', {'matricule': response.matricule})) }}',
+						"return_url": {{ absolute_url(path('recu_paiement')) }},
 						"notify_url": '{{ absolute_url(path('cinetpay_notify')) }}',
 						"customer_id": response.matricule,
 						"customer_name": response.nom,
