@@ -44,10 +44,10 @@ class CandidatController extends AbstractController
 			return $this->render('candidat/existe.html.twig');
 		}
 		
-		if (!$matricule){
+		/*if (!$matricule){
 			$this->addFlash('danger', "Aucun matricule trouver");
 			return $this->redirectToRoute('app_home');
-		}
+		}*/
 	    
 		$this->session->clear();
         return $this->render('candidat/index.html.twig', [
