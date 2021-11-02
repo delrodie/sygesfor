@@ -4,6 +4,7 @@
 	
 	use App\Entity\Activite;
 	use App\Entity\Candidat;
+	use App\Entity\Candidater;
 	use App\Entity\Sygesca\Membre;
 	use App\Entity\Sygesca\Region;
 	use Doctrine\ORM\EntityManagerInterface;
@@ -15,6 +16,16 @@
 		public function __construct(EntityManagerInterface $em)
 		{
 			$this->em = $em;
+		}
+		
+		public function verifCandidature($matricule)
+		{
+			$activite = $this->em->getRepository(Activite::class)->findActiviteEnCour(); //dd($activite);
+			$verif = $this->em->getRepository(Candidater::class)->findCandidature($matricule, $activite->getId());
+			if ($verif) $result = true;
+			else $result = false;
+			
+			return $result;
 		}
 		
 		public function formulaire($request, $candidat)
@@ -58,6 +69,14 @@
 			$candidature->setSexe($participant['sexe']); //dd($candidature);
 			
 			$this->em->persist($candidature);
+			$this->em->flush();
+			
+			$activite = $this->em->getRepository(Activite::class)->findActiviteEnCour();
+			$candidater = new Candidater();
+			$candidater->setActivite($activite);
+			$candidater->setCandidat($candidature);
+			
+			$this->em->persist($candidater);
 			$this->em->flush();
 			
 			return true;

@@ -31,7 +31,11 @@ class CandidatController extends AbstractController
     {
 	    $matricule = $this->session->get('matricule');
 	    $candidat = $this->getDoctrine()->getRepository(Membre::class, 'sygesca')->findOneBy(['matricule'=>$matricule]);
-	    //dd($candidat);
+	    
+		if($this->_candidature->verifCandidature($matricule)){
+			$this->addFlash('danger', 'Attention vous avez déjà postulé à cette formation. Si vous pensez que c\'est une erreur merci de contacter le CONAFOR.');
+			return $this->render('candidat/existe.html.twig');
+		}
 	    
 		$this->session->clear();
         return $this->render('candidat/index.html.twig', [
