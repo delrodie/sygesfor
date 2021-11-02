@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
@@ -24,12 +25,14 @@ class CinetpayController extends AbstractController
 	private $_candidature;
 	private $em;
 	private $client;
+	private $session;
 	
-	public function __construct(GestionCandidature $_candidature, EntityManagerInterface $em, HttpClientInterface $client)
+	public function __construct(GestionCandidature $_candidature, EntityManagerInterface $em, HttpClientInterface $client, SessionInterface $session)
 	{
 		$this->_candidature = $_candidature;
 		$this->em = $em;
 		$this->client = $client;
+		$this->session = $session;
 	}
 	
     /**
@@ -113,9 +116,8 @@ class CinetpayController extends AbstractController
 							$candidater->setOperatorId($donnee->data->operator_id);
 							$candidater->setPaymentDate($donnee->data->payment_date);
 							$this->em->flush();
-							return $this->render('cinetpay/index.html.twig',[
-								'candidate' =>  $candidater
-							]);
+							
+							$this->session->set('candidater', $candidater->getToken());
 						}elseif ($donnee->code === '602'){
 							$this->addFlash('danger', 'Le solde de paiement est insuffisant. Merci de recharger ton compte.');
 							$view = $this->render('cinetpay/echec.html.twig');

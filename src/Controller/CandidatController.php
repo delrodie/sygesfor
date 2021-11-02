@@ -79,8 +79,13 @@ class CandidatController extends AbstractController
 		$activite = $this->getDoctrine()->getRepository(Activite::class)->findActiviteEnCour();
 		$candidater = $this->getDoctrine()->getRepository(Candidater::class)->findCandidatureValidee($matricule, $activite->getId());
 		
+		$montant = $activite->getMontant();
+		$am = (int) $montant/(1 - 0.035);
+		$am = $this->arrondiSuperieur($am, 5);
+		
 		return $this->render('candidat/paiement.html.twig',[
-			'candidater' => $candidater
+			'candidater' => $candidater,
+			'montant' => $am
 		]);
 	}
 	

@@ -80,7 +80,7 @@
 			</div>
 				<div class="row mt-5 mb-5">
 					<div class="col text-center montant">
-						Montant: <span>{{ candidater.activite.montant|number_format(0,'','.') }}</span> FCFA
+						Montant: <span>{{ montant|number_format(0,'','.') }}</span> FCFA
 					</div>
 				</div>
 			<div class="row">
@@ -125,7 +125,7 @@
 						'site_id': 356950,
 						"transaction_id": response.id_transaction,
 						"description": "Inscription au camp de formation",
-						"return_url": '{{ absolute_url(path('app_home')) }}',
+						"return_url": '{{ absolute_url(path('recu_paiement')) }}',
 						"notify_url": '{{ absolute_url(path('cinetpay_notify')) }}',
 						"customer_id": response.id,
 						"customer_name": response.nom,
