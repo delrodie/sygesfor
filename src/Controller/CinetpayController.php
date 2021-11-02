@@ -101,7 +101,7 @@ class CinetpayController extends AbstractController
 						]; //dd($options);
 						
 						// Creation du context
-						$context = stream_context_create($options); dd($context);
+						$context = stream_context_create($options); //dd($context);
 						
 						// Execution de la requete
 						$result =  file_get_contents('https://api-checkout.cinetpay.com/v2/payment/check', false, $context);
