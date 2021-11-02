@@ -43,6 +43,21 @@ class Candidater
      */
     private $activite;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $montant;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $idTransaction;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $statusPaiement;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -112,15 +127,51 @@ class Candidater
 	 * @ORM\PrePersist
 	 */
 	public function setCreatedAtValue()
-	{
-		$this->createdAt = new \DateTime();
-	}
+                           	{
+                           		$this->createdAt = new \DateTime();
+                           	}
 	
 	/**
 	 * @ORM\PreUpdate 
 	 */
 	public function setUpdatedAtValue()
-	{
-		$this->updatedAt = new \DateTime();
-	}
+                           	{
+                           		$this->updatedAt = new \DateTime();
+                           	}
+
+    public function getMontant(): ?int
+    {
+        return $this->montant;
+    }
+
+    public function setMontant(?int $montant): self
+    {
+        $this->montant = $montant;
+
+        return $this;
+    }
+
+    public function getIdTransaction(): ?string
+    {
+        return $this->idTransaction;
+    }
+
+    public function setIdTransaction(?string $idTransaction): self
+    {
+        $this->idTransaction = $idTransaction;
+
+        return $this;
+    }
+
+    public function getStatusPaiement(): ?string
+    {
+        return $this->statusPaiement;
+    }
+
+    public function setStatusPaiement(?string $statusPaiement): self
+    {
+        $this->statusPaiement = $statusPaiement;
+
+        return $this;
+    }
 }

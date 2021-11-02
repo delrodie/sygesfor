@@ -17,7 +17,7 @@
 			<div class="row">
 				<div class="col bouton" data-aos="fade-right" data-aos-duration="3000" >
 					<a href="#" class="btn btn-primary btn-lg" onclick="matricule()"><i class="las la-save"></i> S'inscrire </a>
-					<a href="#" class="btn btn-outline-danger btn-lg"><i class="las la-hand-holding-usd"></i> Paiement</a>
+					<a href="#" class="btn btn-outline-danger btn-lg" onclick="paiement()"><i class="las la-hand-holding-usd"></i> Paiement</a>
 				</div>
 			</div>
 		</div>
@@ -66,6 +66,52 @@
                         console.log(donnee.matricule)
                         //dump();
                         window.location = "{{ absolute_url(path('candidat_index')) }}";
+                        //window.location = "{{ absolute_url(path('app_home')) }}recherche/matricule/"+ donnee.slug;
+                    }
+                }
+            })
+        }
+
+        function paiement() {
+            Swal.fire({
+                title: 'Entre ton matricule',
+                input: 'text',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonText: '<i class="fas fa-search"></i> Valider',
+                inputPlaceholder: 'Entre ton matricule',
+                showLoaderOnConfirm: true,
+                cancelButtonText: 'Annuler',
+                preConfirm: (matricule) => {
+                    //return fetch(`//api.github.com/users/${login}`)
+                    return fetch(`{{ absolute_url(path('app_home')) }}ajax/${matricule}/paiement`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(response.statusText)
+                            }
+                            let matricule = response.matricule;
+                            console.log(response.status)
+                            return response.json()
+
+                        })
+                        .catch(error => {
+                            Swal.showValidationMessage(
+                                `Demande échouée: ${error}`
+                            )
+                        })
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let donnee = result.value
+                    if (!donnee.status){
+                        window.location = "{{ absolute_url(path('app_recherche_echec')) }}"
+                    }else{
+                        console.log(donnee.status)
+                        //dump();
+                        window.location = "{{ absolute_url(path('candidat_paiement')) }}";
                         //window.location = "{{ absolute_url(path('app_home')) }}recherche/matricule/"+ donnee.slug;
                     }
                 }

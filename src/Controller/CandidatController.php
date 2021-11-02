@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Activite;
+use App\Entity\Candidater;
 use App\Entity\Sygesca\Membre;
 use App\Utilities\GestionCandidature;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -9,6 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * @Route("/candidat")
@@ -60,5 +66,41 @@ class CandidatController extends AbstractController
 		return $this->render('candidat/new.html.twig',[
 		
 		]);
+	}
+	
+	/**
+	 * @Route("/paiement/", name="candidat_paiement", methods={"GET","POST"})
+	 */
+	public function paiement(Request $request)
+	{
+		$matricule = $this->session->get('matricule');
+		if (!$matricule) return $this->redirectToRoute('app_home');
+		
+		$activite = $this->getDoctrine()->getRepository(Activite::class)->findActiviteEnCour();
+		$candidater = $this->getDoctrine()->getRepository(Candidater::class)->findCandidatureValidee($matricule, $activite->getId());
+		
+		return $this->render('candidat/paiement.html.twig',[
+			'candidater' => $candidater
+		]);
+	}
+	
+	/**
+	 * @Route("/paiement/validation", name="candiat_paiement_validation", methods={"GET","POST"})
+	 */
+	public function validation(Request $request)
+	{
+		//Initialisation
+		$encoders = [new XmlEncoder(), new JsonEncoder()];
+		$normalizers = [new ObjectNormalizer()];
+		$serializer = new Serializer($normalizers, $encoders);
+		
+		$candidater = $request->get('candidater');
+		
+		$result = $this->_candidature->paiement($candidater);
+		
+		//dd($result);
+		$this->session->clear();
+		
+		return $this->json($result);
 	}
 }

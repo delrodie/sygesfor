@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Activite;
+use App\Entity\Candidater;
 use App\Entity\Sygesca\Membre;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,4 +44,33 @@ class AjaxController extends AbstractController
 		
         return $this->json($data);
     }
+	
+	/**
+	 * @Route("/{matricule}/paiement", name="requete_ajax_paiement", methods={"GET","POST"})
+	 */
+	public function paiement(Request $request, $matricule)
+	{
+		//Initialisation
+		$encoders = [new XmlEncoder(), new JsonEncoder()];
+		$normalizers = [new ObjectNormalizer()];
+		$serializer = new Serializer($normalizers, $encoders);
+		
+		$activite = $this->getDoctrine()->getRepository(Activite::class)->findActiviteEnCour();
+		$candidater = $this->getDoctrine()->getRepository(Candidater::class)->findCandidature($matricule, $activite->getId());
+		if ($candidater->getValidation())
+			$data = [
+				'id' => $candidater->getId(),
+				'status' => true,
+			];
+		else
+			$data = [
+				'id' => $candidater->getId(),
+				'status' => false,
+			];
+		
+		$this->session->set('matricule', $matricule);
+		
+		return $this->json($data);
+		
+	}
 }

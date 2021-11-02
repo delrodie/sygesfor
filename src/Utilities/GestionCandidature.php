@@ -18,7 +18,7 @@
 			$this->em = $em;
 		}
 		
-		public function verifCandidature($matricule)
+		public function verifCandidature($matricule): bool
 		{
 			$activite = $this->em->getRepository(Activite::class)->findActiviteEnCour(); //dd($activite);
 			$verif = $this->em->getRepository(Candidater::class)->findCandidature($matricule, $activite->getId());
@@ -28,7 +28,7 @@
 			return $result;
 		}
 		
-		public function formulaire($request, $candidat)
+		public function formulaire($request, $candidat): bool
 		{
 			$participant = [
 				'nom' => $candidat->getNom(),
@@ -82,7 +82,7 @@
 			return true;
 		}
 		
-		public function listeCandidat()
+		public function listeCandidat(): array
 		{
 			$activite = $this->em->getRepository(Activite::class)->findActiviteEnCour();
 			$candidats = $this->em->getRepository(Candidater::class)->findListCandidatByActivite($activite->getId());
@@ -112,7 +112,14 @@
 			return $list;
 		}
 		
-		public function validation($candidat,$activite)
+		/**
+		 * Mise a jour de la table Candidater après validation
+		 *
+		 * @param $candidat
+		 * @param $activite
+		 * @return bool
+		 */
+		public function validation($candidat,$activite): bool
 		{
 			$candidater = $this->em->getRepository(Candidater::class)->findCandidature($candidat,$activite);
 			$candidater->setValidation(true);
@@ -121,6 +128,42 @@
 			// Envoie de mail au candidat
 			
 			return true;
+		}
+		
+		/**
+		 * Mise a jour de la table Candidater et affichage
+		 *
+		 * @param $candidaterID
+		 * @return array
+		 */
+		public function paiement($candidaterID)
+		{
+			// Variables
+			$id_transaction = time().''.substr(uniqid("",true), -9, 9);
+			$status_paiement = "UNKNOW";
+			
+			$candidater = $this->em->getRepository(Candidater::class)->findOneBy(['id'=>$candidaterID]);
+			
+			$montant = $candidater->getActivite()->getMontant();
+			$am = (int) $montant/(1 - 0.035);
+			$am = $this->arrondiSuperieur($am, 5);
+			
+			$candidater->setIdTransaction($id_transaction);
+			$candidater->setStatusPaiement($status_paiement);
+			$candidater->setMontant($am);
+		
+			$data= [
+				'id' => $candidater->getId(),
+				'validation' => $candidater->getValidation(),
+				'id_transaction' => $candidater->getIdTransaction(),
+				'montant' => $candidater->getMontant(),
+				'activite' => $candidater->getActivite()->getNom(),
+				'nom' => $candidater->getCandidat()->getNom(),
+				'prenoms' => $candidater->getCandidat()->getPrenoms(),
+				'region' => $candidater->getCandidat()->getRegion()->getNom(),
+			];
+			
+			return $data;
 		}
 		
 		/**

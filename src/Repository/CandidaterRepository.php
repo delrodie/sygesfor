@@ -19,6 +19,12 @@ class CandidaterRepository extends ServiceEntityRepository
         parent::__construct($registry, Candidater::class);
     }
 	
+	/**
+	 * @param $matricule
+	 * @param $activite
+	 * @return int|mixed|string|null
+	 * @throws \Doctrine\ORM\NonUniqueResultException
+	 */
 	public function findCandidature($matricule, $activite)
 	{
 		return $this
@@ -32,6 +38,26 @@ class CandidaterRepository extends ServiceEntityRepository
 			->setParameters([
 				'matricule' => $matricule,
 				'activite' => $activite
+			])
+			->getQuery()->getOneOrNullResult()
+			;
+	}
+	
+	public function findCandidatureValidee($matricule, $activite)
+	{
+		return $this
+			->createQueryBuilder('c')
+			->addSelect('a')
+			->addSelect('ca')
+			->leftJoin('c.candidat', 'ca')
+			->leftJoin('c.activite', 'a')
+			->where('ca.matricule = :matricule')
+			->andWhere('a.id = :activite')
+			->andWhere('c.validation = :valid')
+			->setParameters([
+				'matricule' => $matricule,
+				'activite' => $activite,
+				'valid' => true
 			])
 			->getQuery()->getOneOrNullResult()
 			;
@@ -54,6 +80,28 @@ class CandidaterRepository extends ServiceEntityRepository
 			->getQuery()->getResult()
 			;
  	}
+	
+	/**
+	 * Candidat par l'ID de Candidater
+	 * 
+	 * @param $id
+	 * @return int|mixed|string|null
+	 * @throws \Doctrine\ORM\NonUniqueResultException
+	 */
+	public function findCandidatAndActiviteByCandidaterID($id)
+	{
+		return $this
+			->createQueryBuilder('c')
+			->addSelect('a')
+			->addSelect('ct')
+			->addSelect('r')
+			->leftJoin('c.activite', 'a')
+			->leftJoin('c.candidat', 'ct')
+			->leftJoin('ct.region', 'r')
+			->where('c.id = :id')
+			->setParameter('id', $id)
+			->getQuery()->getOneOrNullResult();
+	 }
 
     // /**
     //  * @return Candidater[] Returns an array of Candidater objects
