@@ -163,7 +163,7 @@
 				'nom' => $candidater->getCandidat()->getNom(),
 				'prenoms' => $candidater->getCandidat()->getPrenoms(),
 				'region' => $candidater->getCandidat()->getRegion()->getNom(),
-				'description' => "Inscription a la formation par ",
+				'description' => "Inscription a la formation par ".$candidater->getCandidat()->getNom()." ".$candidater->getCandidat()->getPrenoms().".",
 				'matricule' => $candidater->getCandidat()->getMatricule()
 			];
 			
