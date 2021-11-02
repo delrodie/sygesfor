@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('conafor_activite_delete', {'id': activite.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer cette activité?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ activite.id) }}">
+    <button class="danger">Supprimer</button>
+</form>

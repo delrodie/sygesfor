@@ -303,6 +303,20 @@ main{
     color: var(--main-color);
     cursor: pointer;
 }
+.activity-card a.bouton{
+    float: right;
+    margin: auto 50px 30px 0;
+    background: #0853CDFF;
+    color: #FFFFFF;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+.activity-card a.bouton i{
+    font-weight: bold;
+}
+.activity-card a.bouton:hover{
+    background: var(--text-grey);
+}
 
 .activity-card table{
     width: 95%;
@@ -416,7 +430,101 @@ tbody tr:nth-child(even){
     grid-column-gap: 1rem;
     border: 0;
 }
-
+.formulaire{
+    padding: 30px;
+    width: 100%;
+}
+.formulaire .form-row{
+    display: flex;
+    margin: 10px auto;
+}
+.formulaire .form-column-2{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 1rem;
+    border: 0px solid #ccc;
+    flex-grow: 1;
+}
+.formulaire .form-column-1{
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 0;
+    flex-grow: 1;
+}
+.formulaire label{
+    font-weight: 400;
+    color: #4c4c4c;
+}
+.formulaire input{
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200%;
+    color: var(--main-color);
+    font-weight: 500;
+    margin: 8px 0;
+}
+.formulaire input:focus{
+    border: 1px solid var(--main-color);
+}
+.formulaire textarea{
+    width: 100%;
+    height: 150px;
+    border: 1px solid #ccc;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    resize: none;
+}
+.align-right{
+    text-align: right;
+    margin-right: 80px;
+}
+button.bouton{
+    background: #0853CDFF;
+    color: #FFFFFF;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 0;
+}
+button.bouton:hover{
+    background: var(--text-grey);
+    color: #FFFFFF;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 0;
+}
+button.danger{
+    background: #b60202;
+    color: #FFFFFF;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 0;
+}
+button.danger:hover{
+    background: #d05656;
+    color: #FFFFFF;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 0;
+}
+.flash{
+    padding: 20px 20px;
+    margin: 15px 30px;
+    border-radius: 7px;
+}
+.flash-success{
+    background: rgba(0,128,0, 0.2);
+    border: solid 1px rgba(0,128,0,0.7);
+}
+.flash-danger{
+    background: rgba(187, 3, 3, 0.2);
+    border: solid 1px rgba(187, 3, 3, 0.7);
+}
 @media only screen and (max-width: 1200px){
 
     .sidebar{
@@ -490,6 +598,19 @@ tbody tr:nth-child(even){
     .summary{
         margin-top: 1.5rem;
     }
+    .formulaire .form-row{
+        display: inline-block;
+        margin: 10px auto;
+    }
+    .formulaire textarea{
+         width: 100%;
+         height: 150px;
+         border: 1px solid #ccc;
+         padding: 12px 20px;
+         box-sizing: border-box;
+         border-radius: 4px;
+         resize: none;
+     }
 }
 
 @media only screen and (max-width: 600px){

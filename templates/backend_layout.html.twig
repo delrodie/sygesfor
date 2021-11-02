@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>{% block title %}CONAFOR : {% endblock %}</title>
-        <link rel="shortcut icon" href="{{ absolute_url(asset('assets/images/ascci.png')) }}">
+        <link rel="shortcut icon" href="{{ absolute_url(asset('assets/img/ascci.png')) }}">
 
         <meta name="keywords" content="SCOUT, OMMS, ASCCI"  />
         <meta name="description" content="Backoffice du Système de Gestion des Camps de Formation des Scouts Catholiques de Côte d'Ivoire" />
@@ -20,12 +20,12 @@
         <meta property="og:description" content="Backoffice du Système de Gestion des Camps de Formation des Scouts Catholiques de Côte d'Ivoire" />
         <meta property="og:url" content="{{ absolute_url(path('conafor_dashbord')) }}" />
         <meta property="og:site_name" content="ASCCI" />
-        <meta property="og:image" content="{{ absolute_url(asset('assets/images/ascci.png')) }}" />
+        <meta property="og:image" content="{{ absolute_url(asset('assets/img/ascci.png')) }}" />
         <meta name="twitter:card" content="summary"/>
         <meta name="twitter:description" content="SYGEFOR : Tableau de bord"/>
         <meta name="twitter:title" content="Backoffice du Système de Gestion des Camps de Formation des Scouts Catholiques de Côte d'Ivoire"/>
         <meta name="twitter:domain" content="ASCCI"/>
-        <meta name="twitter:image:src" content="{{ absolute_url(asset('assets/images/ascci.png')) }}"/>
+        <meta name="twitter:image:src" content="{{ absolute_url(asset('assets/img/ascci.png')) }}"/>
 
         {% block stylesheets %}
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
@@ -72,7 +72,7 @@
 
                     <hr class="administrateur">
                     <li>
-                        <a href="">
+                        <a href="{{ absolute_url(path('conafor_activite_index'))}}">
                             <span class="ti-target"></span> <span>Activités</span>
                         </a>
                     </li>

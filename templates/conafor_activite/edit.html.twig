@@ -1,0 +1,49 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Gestion des articles{% endblock %}
+
+{% block body %}
+    <main>
+        <h2 class="dash-title">Gestion des articles</h2>
+
+        <section class="recent">
+            <div class="tableau-grid">
+                <div class="activity-card">
+                    <h3></h3>
+                    <a href="{{ path('conafor_activite_index') }}" class="bouton" style="margin-bottom: 20px;"><i class="ti-list"></i> Liste</a>
+                    {{ include('conafor_activite/_form.html.twig', {'button_label': 'Modifier'}) }}
+                    <div style="margin: auto auto 30px 50px;">
+                        {{ include('conafor_activite/_delete_form.html.twig') }}  
+                    </div>
+                    
+                </div>
+            </div>
+
+
+        </section>
+
+    </main>
+
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ absolute_url(asset('backend/css/datepicker.css')) }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+    <script src="{{ absolute_url(asset('backend/js/datepicker.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backend/js/datepicker.fr-FR.js')) }}"></script>
+    <script>
+        $(function() {
+            $('[data-toggle="datepicker"]').datepicker({
+                autoHide: true,
+                zIndex: 2048,
+                format: 'yyyy-mm-dd',
+                languages: 'fr-FR'
+            });
+        });
+    </script><script>
+    CKEDITOR.replace( 'activite[description]' );
+</script>
+{% endblock %}

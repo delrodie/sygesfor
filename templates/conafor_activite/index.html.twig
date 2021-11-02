@@ -1,0 +1,79 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Liste des activités{% endblock %}
+
+{% block body %}
+    <main>
+        <h2 class="dash-title">Liste des activités</h2>
+        <section class="recent">
+            <div class="tableau-grid">
+                <div class="activity-card" >
+                    {% for label, messages in app.flashes(['success', 'danger']) %}
+                        {% for message in messages %}
+                            <div class="flash-{{ label }} flash">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+
+                    <h3></h3>
+                    <a href="{{ path('conafor_activite_new') }}" class="bouton"><i class="ti-plus"></i> Ajouter</a>
+                    <div class="table-responsive" id="impression">
+                        <table id="liste" class="display table">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Code</th>
+                                <th>Nom</th>
+                                <th>Période activité</th>
+                                <th>Période inscription</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for activite in activites %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{ activite.code }}</td>
+                                    <td>
+                                        <a href="{{ path('conafor_activite_edit', {'id': activite.id}) }}"> {{ activite.nom }}</a>
+                                    </td>
+                                    <td>{{ activite.debutActivite|date('d-m-Y') }} au {{ activite.finActivite|date('d-m-Y')  }}</td>
+                                    <td>{{ activite.debutPeriode|date('d-m-Y')  }} - {{ activite.finPeriode|date('d-m-Y')  }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#liste').DataTable( {
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ],
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.11.3/i18n/fr_fr.json'
+                }
+            } );
+        } );
+    </script>
+{% endblock %}
