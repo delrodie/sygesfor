@@ -45,6 +45,7 @@ class CandidatController extends AbstractController
 		}
 		
 		if (!$matricule){
+			$this->addFlash('danger', "Aucun matricule trouver");
 			return $this->redirectToRoute('app_home');
 		}
 	    

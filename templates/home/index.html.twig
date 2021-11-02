@@ -14,6 +14,14 @@
 					</p>
 				</div>
 			</div>
+			{% for label, messages in app.flashes(['success', 'danger']) %}
+				{% for message in messages %}
+					<div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+						{{ message }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				{% endfor %}
+			{% endfor %}
 			<div class="row">
 				<div class="col bouton" data-aos="fade-right" data-aos-duration="3000" >
 					<a href="#" class="btn btn-primary btn-lg" onclick="matricule()"><i class="las la-save"></i> S'inscrire </a>
